@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\EmployeeLeaveStatus;
 use App\Http\Requests\EmployeeLeaveRequest;
 use App\Models\Leave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\View\View;
 
 class EmployeeDashboardController extends Controller
@@ -61,7 +63,7 @@ class EmployeeDashboardController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        DB::table('employee_leave')->where('id', $id)->first();
     }
 
     /**
@@ -69,14 +71,10 @@ class EmployeeDashboardController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $clean_data = $request->validate([
+            'status' => ['required', new Enum(EmployeeLeaveStatus::class)],
+            'reason' => ['required_if:status,denied', 'string', 'max:255'],
+        ]);
+        DB::table('employee_leave')->where('id', $id)->first()->update($clean_data);
     }
 }
