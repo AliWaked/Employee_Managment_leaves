@@ -4,55 +4,47 @@
             width: 100%;
         }
 
-        /* table tr {
-            display: block;
-        }
-
         table tr th,
         table tr td {
-            display: inline-block;
-            width: calc((100% - 15px) / 4);
-            padding: 12px;
-            border:solid 1px #fff;
-        } */
+            background: transparent;
+        }
     </style>
     <div class="container ml-4" style="width: 97%;">
-        <h1 style="margin-bottom: 35px;padding-top:15px;">Leave</h1>
-        {{-- <table class="">
-            <thead>
-                <tr>
-                    <th>Number</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>bla bal</td>
-                    <td>active</td>
-                    <td>now</td>
-                </tr>
-            </tbody>
-        </table> --}}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Created At</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-            </tbody>
-        </table>
+
+        <h1 style="margin-bottom: 35px;padding-top:15px;">Your Leaves <a href="{{ route('employee.dashbaord.create') }}"
+                class="btn btn-primary" style="float:right;">Send
+                New
+                Request
+                Leave</a></h1>
+        @if (count($leave))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="background: transparent; color:#fff;">#</th>
+                        <th scope="col" style="background: transparent; color:#fff;">Type</th>
+                        <th scope="col" style="background: transparent; color:#fff;">Status</th>
+                        <th scope="col" style="background: transparent; color:#fff;">Send At</th>
+                        <th scope="col" style="background: transparent; color:#fff;">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    @foreach ($leave as $key => $value)
+                        <tr>
+                            <th style="background: transparent; color:#fff;" scope="row">{{ $key + 1 }}</th>
+                            <td style="background: transparent; color:#fff;">{{ $value->name }}</td>
+                            <td style="background: transparent; color:#fff;">{{ $value->pivot->status }}</td>
+                            <td style="background: transparent; color:#fff;">
+                                {{ (new \Carbon\Carbon($value->pivot->send_at))->diffForHumans() }}
+                            </td>
+                            <td style="background: transparent; color:#fff;">
+                                <a href="{{ route('employee.dashbaord.show', $value->pivot->id) }}">Show</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p style="font-size: 95px; margin-top:120px; text-align:center;">No Leave</p>
+        @endif
     </div>
 </x-dashboard-layout>

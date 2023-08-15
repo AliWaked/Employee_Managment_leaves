@@ -27,7 +27,7 @@ class EmployeeRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', Rule::unique('employees', 'email')->ignore(Request::route('employee')->id)],
+            'email' => ['required', 'string', 'email', Rule::unique('employees', 'email')->ignore($id)],//Request::route('employee')->id
             'gender' => ['required', 'string', 'in:male,female'],
             'address' => ['nullable', 'string', 'max:255'],
             'birthday' => ['nullable', 'date', 'before:today'],

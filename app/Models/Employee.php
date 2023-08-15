@@ -4,8 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User;
 
-class Employee extends Model
+class Employee extends User
 {
     use HasFactory;
     protected $fillable = [
@@ -24,9 +27,14 @@ class Employee extends Model
     public static function getUserName()
     {
         $number = static::all()->last();
-        if (!$number || $number->created_at->year() != now()->year) {
+        if (!$number || $number->created_at->year != now()->year) {
             return now()->year . '0001';
         }
         return $number->username + 1;
+    }
+
+    public function leaves(): BelongsToMany
+    {
+        return $this->belongsToMany(Leave::class, 'employee_leave', 'employee_id', 'leave_id', 'id', 'id')->withPivot(['id', 'send_at', 'start_date', 'status', 'duration_days']);
     }
 }

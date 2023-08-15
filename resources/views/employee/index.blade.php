@@ -9,6 +9,7 @@
             background: transparent;
         }
     </style>
+    <div>{{ session()->get('success') }}</div>
     <div class="container ml-4" style="width: 97%;">
         <div>{{ Session::get('success') }}</div>
         <h1 style="margin-bottom: 35px;padding-top:15px;">Employee <a href="{{ route('employee.create') }}"
