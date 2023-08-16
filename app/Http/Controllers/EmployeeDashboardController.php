@@ -18,7 +18,7 @@ class EmployeeDashboardController extends Controller
      */
     public function index(): View
     {
-        if (Auth::guard('admin')) {
+        if (Auth::guard('web')) {
             $leaves = DB::table('employee_leave')->get();
         } else {
             $leaves = Auth::guard('employee')->user()->load('leaves')->leaves;
@@ -63,7 +63,8 @@ class EmployeeDashboardController extends Controller
      */
     public function edit(string $id)
     {
-        DB::table('employee_leave')->where('id', $id)->first();
+        $leave = DB::table('employee_leave')->where('id', $id)->first();
+        return view('edit-leave-request', ['leave' => $leave]);
     }
 
     /**

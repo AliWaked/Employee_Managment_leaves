@@ -21,10 +21,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if (request()->is('/admin/*')) {
+        // dd(request()->is('admin/*'));
+        if (!request()->is('admin/*')) {
             Config::set('fortify.guard', 'employee');
             Config::set('fortify.username', 'username');
             Config::set('fortify.home', '/dashboard/employee');
+            Config::set('fortify.prefix', '/employee/dashboard');
         }
     }
 
@@ -40,19 +42,15 @@ class FortifyServiceProvider extends ServiceProvider
         if (Config::get('fortify.guard') == 'employee') {
             Fortify::viewPrefix('auth.');
             Fortify::registerView(function () {
-                return null;
+                return abort(403);
             });
         }
         if (Config::get('fortify.guard') == 'web') {
-            Fortify::viewPrefix('auth.');
-            Fortify::registerView(function () {
-                return 'register';
-            });
+            Fortify::viewPrefix('auth.admin.');
         }
 
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())) . '|' . $request->ip());
-
             return Limit::perMinute(5)->by($throttleKey);
         });
 

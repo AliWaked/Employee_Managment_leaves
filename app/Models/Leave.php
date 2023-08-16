@@ -23,4 +23,9 @@ class Leave extends Model
     {
         $builder->where('status', LeaveStatus::ACTIVE);
     }
+
+    public function employeeLeavesRequest()
+    {
+        return $this->belongsToMany(Employee::class, 'employee_leave', 'leave_id', 'employee_id')->withPivot(['status', 'id']);
+    }
 }

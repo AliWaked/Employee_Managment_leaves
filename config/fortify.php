@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'guard' => ['web', 'employee'],
+    'guard' => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'prefix' => '',
+    'prefix' => '/admin/dashboard',
 
     'domain' => null,
 

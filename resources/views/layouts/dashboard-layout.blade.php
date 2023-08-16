@@ -118,41 +118,41 @@
                         <li class="nav-header">Links</li>
                         <!-- Add icons to the links using the .nav-icon class
                     with font-awesome or any other icon font library -->
-                        {{-- @auth('web') --}}
-                        <li class="nav-item">
-                            <a href="{{ route('leave.index') }}"
-                                class="nav-link {{ !Route::is('leave.*') ?: 'active' }}">
-                                <i class="nav-icon fas fa-th"></i>
-                                {{-- <i class="fa fa-user"></i> --}}
-                                <p>
-                                    Leave
-                                    {{-- <span class="right badge badge-danger">New</span> --}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('employee.index') }}"
-                                class="nav-link {{ !Route::is('employee.*') ?: 'active' }}">
-                                <i class="nav-icon fa fa-users"></i>
-                                {{-- <i class="fa fa-user"></i> --}}
-                                <p>
-                                    Employee
-                                    {{-- <span class="right badge badge-danger">New</span> --}}
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('employee.index') }}"
-                                class="nav-link {{ !Route::is('employee.*') ?: 'active' }}">
-                                <i class="nav-icon fas fa-envelope"></i>
-                                {{-- <i class="fa fa-user"></i> --}}
-                                <p>
-                                    Leave Requests
-                                    {{-- <span class="right badge badge-danger">New</span> --}}
-                                </p>
-                            </a>
-                        </li>
-                        {{-- @endauth --}}
+                        @auth('web')
+                            <li class="nav-item">
+                                <a href="{{ route('leave.index') }}"
+                                    class="nav-link {{ !Route::is('leave.*') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    {{-- <i class="fa fa-user"></i> --}}
+                                    <p>
+                                        Leave
+                                        {{-- <span class="right badge badge-danger">New</span> --}}
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('employee.index') }}"
+                                    class="nav-link {{ !Route::is('employee.*') ?: 'active' }}">
+                                    <i class="nav-icon fa fa-users"></i>
+                                    {{-- <i class="fa fa-user"></i> --}}
+                                    <p>
+                                        Employee
+                                        {{-- <span class="right badge badge-danger">New</span> --}}
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('request.leave.index') }}"
+                                    class="nav-link {{ !Route::is('request.leave.*') ?: 'active' }}">
+                                    <i class="nav-icon fas fa-envelope"></i>
+                                    {{-- <i class="fa fa-user"></i> --}}
+                                    <p>
+                                        Leave Requests
+                                        {{-- <span class="right badge badge-danger">New</span> --}}
+                                    </p>
+                                </a>
+                            </li>
+                        @endauth
                         @auth('employee')
                             <li class="nav-item">
                                 <a href="{{ route('leave.index') }}"

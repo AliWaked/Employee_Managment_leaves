@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDashboardController;
 use App\Http\Controllers\LeaveController;
+use App\Http\Controllers\LeaveRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,9 @@ Route::get('/', function () {
 });
 // Route::view('/dashboard', 'dashboard');
 
-// Route::prefix('/admin/dashboard')->group(function(){
-Route::resource('/admin/dashboard/leave', LeaveController::class)->names('leave')->middleware('auth:web');
-Route::resource('/admin/dashboard/employee', EmployeeController::class)->names('employee')->middleware('auth:web');
+Route::prefix('/admin/dashboard')->middleware(['auth:web'])->group(function () {
+    Route::resource('/leave', LeaveController::class)->names('leave');
+    Route::resource('/employee', EmployeeController::class)->names('employee');
+    Route::resource('/employee/leave/request', LeaveRequestController::class)->names('request.leave');
+});
 Route::resource('/dashboard/employee', EmployeeDashboardController::class)->names('employee.dashbaord')->middleware('auth:employee');
-// });
