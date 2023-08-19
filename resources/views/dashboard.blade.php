@@ -29,6 +29,7 @@
                 </thead>
                 <tbody class="table-group-divider">
                     @foreach ($leave as $key => $value)
+                    {{-- @dd($value); --}}
                         <tr>
                             <th style="background: transparent; color:#fff;" scope="row">{{ $key + 1 }}</th>
                             <td style="background: transparent; color:#fff;">{{ $value->name }}</td>

@@ -18,8 +18,9 @@ class EmployeeDashboardController extends Controller
      */
     public function index(): View
     {
-        if (Auth::guard('web')) {
-            $leaves = DB::table('employee_leave')->get();
+        // dd(Auth::);
+        if (Auth::guard()->name == 'web') {
+            
         } else {
             $leaves = Auth::guard('employee')->user()->load('leaves')->leaves;
         }

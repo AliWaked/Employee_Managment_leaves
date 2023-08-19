@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Laravel\Fortify\Contracts\LoginResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -25,9 +26,19 @@ class FortifyServiceProvider extends ServiceProvider
         if (!request()->is('admin/*')) {
             Config::set('fortify.guard', 'employee');
             Config::set('fortify.username', 'username');
-            Config::set('fortify.home', '/dashboard/employee');
+            // Config::set('fortify.home', '/dashboard/employee');
             Config::set('fortify.prefix', '/employee/dashboard');
         }
+        $this->app->instance(LoginResponse::class, new class implements LoginResponse
+        {
+            public function toResponse($request)
+            {
+                if ($request->user('employee')) {
+                    return redirect()->intended('/dashboard/employee');
+                }
+                return redirect()->intended('/admin/dashboard/leave');
+            }
+        });
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace App\Enum;
 
-enum EmployeeLeaveStatus: string
+enum LeaveRequestStatus: string
 {
         //'pending', 'approved', 'denied'
     case PENDING = 'pending';
-    case APPROVED = 'approved';
-    case DENIED = 'denied';
+    case ACCEPT = 'Accept';
+    case DENIED = 'Denied';
 }

@@ -23,7 +23,7 @@
             <small>{{ $errors->first('email') }}</small>
         </div>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" name="password" placeholder="">
+            <input type="password" class="form-control" id="floatingInput" name="password" placeholder="">
             <label for="floatingInput">Password</label>
             <small>{{ $errors->first('password') }}</small>
         </div>

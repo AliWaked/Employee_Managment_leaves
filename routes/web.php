@@ -25,6 +25,6 @@ Route::get('/', function () {
 Route::prefix('/admin/dashboard')->middleware(['auth:web'])->group(function () {
     Route::resource('/leave', LeaveController::class)->names('leave');
     Route::resource('/employee', EmployeeController::class)->names('employee');
-    Route::resource('/employee/leave/request', LeaveRequestController::class)->names('request.leave');
+    Route::resource('/employee/request/leave', LeaveRequestController::class)->only(['index','update'])->names('request.leave');
 });
 Route::resource('/dashboard/employee', EmployeeDashboardController::class)->names('employee.dashbaord')->middleware('auth:employee');

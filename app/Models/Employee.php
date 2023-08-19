@@ -35,6 +35,6 @@ class Employee extends User
 
     public function leaves(): BelongsToMany
     {
-        return $this->belongsToMany(Leave::class, 'employee_leave', 'employee_id', 'leave_id', 'id', 'id')->withPivot(['id', 'send_at', 'start_date', 'status', 'duration_days']);
+        return $this->belongsToMany(Leave::class, 'employee_leave', 'employee_id', 'leave_id', 'id', 'id')->using(EmployeeLeave::class)->withPivot(['id', 'send_at', 'start_date', 'status', 'duration_days']);
     }
 }
